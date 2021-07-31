@@ -2,7 +2,7 @@ export const darkTheme = {
   name: "dark-theme",
   colors: {
     primary: "#EDF2F7",
-    secondary: "#63171B",
+    secondary: "#F687B3",
     background: "#1A202C",
   },
   fontFamily: {
