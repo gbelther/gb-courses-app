@@ -26,7 +26,9 @@ export function Header() {
         <Link href="/courses" passHref>
           <NavItem>Cursos</NavItem>
         </Link>
-        <NavItem>Instrutor</NavItem>
+        <Link href="/instructor" passHref>
+          <NavItem>Instrutor</NavItem>
+        </Link>
       </NavWrapper>
       <UserLoginWrapper>
         <UserIcon />
