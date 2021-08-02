@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.main`
   width: 100%;
-  max-width: 1200px;
+  max-width: ${({ theme }) => theme.breakPoints.xl};
   height: calc(100vh - 3rem);
   margin: 0 auto;
 

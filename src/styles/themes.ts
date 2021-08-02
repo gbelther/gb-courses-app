@@ -10,6 +10,9 @@ export const darkTheme = {
   fontFamily: {
     roboto: "'Roboto', sans-serif",
   },
+  breakPoints: {
+    xl: "1280px",
+  },
 };
 
 export type ITheme = typeof darkTheme;
