@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import {
   Container,
   LogoWrapper,
@@ -18,8 +20,12 @@ export function Header() {
         <LogoTitle>GB-COURSES</LogoTitle>
       </LogoWrapper>
       <NavWrapper>
-        <NavItem>Home</NavItem>
-        <NavItem>Cursos</NavItem>
+        <Link href="/" passHref>
+          <NavItem>Home</NavItem>
+        </Link>
+        <Link href="/courses" passHref>
+          <NavItem>Cursos</NavItem>
+        </Link>
         <NavItem>Instrutor</NavItem>
       </NavWrapper>
       <UserLoginWrapper>

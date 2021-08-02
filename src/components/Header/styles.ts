@@ -40,8 +40,10 @@ export const NavWrapper = styled.section`
   gap: 1rem;
 `;
 
-export const NavItem = styled.nav`
+export const NavItem = styled.a`
+  color: ${({ theme }) => theme.colors.primary};
   font-size: 1rem;
+  text-decoration: none;
 
   cursor: pointer;
   transition: 0.3s;
