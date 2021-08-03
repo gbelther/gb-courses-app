@@ -1,3 +1,4 @@
+import { useRouter } from "next/dist/client/router";
 import {
   Container,
   ImageWrapper,
@@ -8,6 +9,12 @@ import {
 } from "./styles";
 
 export default function Home() {
+  const router = useRouter();
+
+  function handleRouterCourses() {
+    router.push("/courses");
+  }
+
   return (
     <Container>
       <ImageWrapper>
@@ -18,7 +25,7 @@ export default function Home() {
           Aprofunde-se nas principais <strong>tecnologias</strong> praticadas
           pelo mercado e se destaque nesse meio.
         </Legend>
-        <Button>Conheça os cursos</Button>
+        <Button onClick={handleRouterCourses}>Conheça os cursos</Button>
       </LegendWrapper>
     </Container>
   );

@@ -15,10 +15,12 @@ import {
 export function Header() {
   return (
     <Container>
-      <LogoWrapper>
-        <LogoIcon />
-        <LogoTitle>GB-COURSES</LogoTitle>
-      </LogoWrapper>
+      <Link href="/" passHref>
+        <LogoWrapper>
+          <LogoIcon />
+          <LogoTitle>GB-COURSES</LogoTitle>
+        </LogoWrapper>
+      </Link>
       <NavWrapper>
         <Link href="/" passHref>
           <NavItem>Home</NavItem>

@@ -18,8 +18,6 @@ export const LogoWrapper = styled.section`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-
-  cursor: pointer;
 `;
 
 export const LogoIcon = styled(GiWolfHowl)`
