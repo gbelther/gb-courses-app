@@ -180,6 +180,6 @@ export const getStaticProps: GetStaticProps = async () => {
       courses,
       categories,
     },
-    revalidate: 10,
+    revalidate: 30,
   };
 };
