@@ -1,4 +1,7 @@
+import { GetStaticProps } from "next";
 import { useRouter } from "next/dist/client/router";
+import { Client } from "../services/prismic";
+import Prismic from "@prismicio/client";
 import {
   Container,
   ImageWrapper,
@@ -30,3 +33,21 @@ export default function Home() {
     </Container>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const prismic = Client;
+
+  const response = await prismic.query(
+    [Prismic.predicates.at("document.type", "course")],
+    {
+      fetch: ["course.title"],
+      pageSize: 100,
+    }
+  );
+
+  console.log(JSON.stringify(response, null, 2));
+
+  return {
+    props: {},
+  };
+};
