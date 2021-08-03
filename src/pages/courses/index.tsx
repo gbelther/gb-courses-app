@@ -24,7 +24,7 @@ import {
   CourseAction,
   CoursePrice,
   Button,
-} from "./styles";
+} from "../../styles/pages/Courses/styles";
 
 interface ICourse {
   id: string;
@@ -180,5 +180,6 @@ export const getStaticProps: GetStaticProps = async () => {
       courses,
       categories,
     },
+    revalidate: 10,
   };
 };

@@ -1,4 +1,8 @@
-import { Container, Title, Content } from "./styles";
+import {
+  Container,
+  Title,
+  Content,
+} from "../../styles/pages/Instructor/styles";
 
 export default function Instructor() {
   return (

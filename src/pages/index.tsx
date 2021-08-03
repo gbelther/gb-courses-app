@@ -7,7 +7,7 @@ import {
   Image,
   Legend,
   Button,
-} from "./styles";
+} from "../styles/pages/Home/styles";
 
 export default function Home() {
   const router = useRouter();
