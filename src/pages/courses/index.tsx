@@ -72,7 +72,6 @@ export default function Courses({ courses }: ICoursesProps) {
         <CoursesList>
           {courses.map((course) => {
             const { id, excerpt, title, price, image } = course;
-
             return (
               <CourseItem key={id}>
                 <ImgCourse src={image} />

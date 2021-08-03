@@ -92,6 +92,8 @@ export const ImgCourse = styled.img`
   width: 120px;
   height: 120px;
   border-radius: 10px;
+
+  align-self: center;
 `;
 
 export const CourseWrapper = styled.div`
