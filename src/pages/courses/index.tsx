@@ -1,3 +1,8 @@
+import { GetStaticProps } from "next";
+import { Client } from "../../services/prismic";
+import Prismic from "@prismicio/client";
+import { RichText } from "prismic-dom";
+
 import {
   Container,
   NavWrapper,
@@ -21,7 +26,17 @@ import {
   Button,
 } from "./styles";
 
-export default function Courses() {
+interface ICoursesProps {
+  courses: {
+    id: string;
+    title: string;
+    excerpt: string;
+    price: string;
+    image: string;
+  }[];
+}
+
+export default function Courses({ courses }: ICoursesProps) {
   return (
     <Container>
       <NavWrapper>
@@ -55,62 +70,60 @@ export default function Courses() {
       </NavWrapper>
       <ContentWrapper>
         <CoursesList>
-          <CourseItem>
-            <ImgCourse src="/react-img.png" />
-            <CourseWrapper>
-              <CourseInfos>
-                <CourseTitle>ReactJS do Básico ao Avançado</CourseTitle>
-                <CourseDescription>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Reprehenderit, in perferendis porro odit officiis ex odio,
-                  temporibus dolorem doloribus voluptatem illum repellendus
-                  facere modi quam laborum omnis aliquam consequatur neque!
-                </CourseDescription>
-              </CourseInfos>
-              <CourseAction>
-                <CoursePrice>R$199,90</CoursePrice>
-                <Button>COMPRAR</Button>
-              </CourseAction>
-            </CourseWrapper>
-          </CourseItem>
-          <CourseItem>
-            <ImgCourse src="/react-img.png" />
-            <CourseWrapper>
-              <CourseInfos>
-                <CourseTitle>ReactJS do Básico ao Avançado</CourseTitle>
-                <CourseDescription>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Reprehenderit, in perferendis porro odit officiis ex odio,
-                  temporibus dolorem doloribus voluptatem illum repellendus
-                  facere modi quam laborum omnis aliquam consequatur neque!
-                </CourseDescription>
-              </CourseInfos>
-              <CourseAction>
-                <CoursePrice>R$199,90</CoursePrice>
-                <Button>COMPRAR</Button>
-              </CourseAction>
-            </CourseWrapper>
-          </CourseItem>
-          <CourseItem>
-            <ImgCourse src="/react-img.png" />
-            <CourseWrapper>
-              <CourseInfos>
-                <CourseTitle>ReactJS do Básico ao Avançado</CourseTitle>
-                <CourseDescription>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Reprehenderit, in perferendis porro odit officiis ex odio,
-                  temporibus dolorem doloribus voluptatem illum repellendus
-                  facere modi quam laborum omnis aliquam consequatur neque!
-                </CourseDescription>
-              </CourseInfos>
-              <CourseAction>
-                <CoursePrice>R$199,90</CoursePrice>
-                <Button>COMPRAR</Button>
-              </CourseAction>
-            </CourseWrapper>
-          </CourseItem>
+          {courses.map((course) => {
+            const { id, excerpt, title, price, image } = course;
+
+            return (
+              <CourseItem key={id}>
+                <ImgCourse src={image} />
+                <CourseWrapper>
+                  <CourseInfos>
+                    <CourseTitle>{title}</CourseTitle>
+                    <CourseDescription>{excerpt}</CourseDescription>
+                  </CourseInfos>
+                  <CourseAction>
+                    <CoursePrice>{price}</CoursePrice>
+                    <Button>DETALHES</Button>
+                  </CourseAction>
+                </CourseWrapper>
+              </CourseItem>
+            );
+          })}
         </CoursesList>
       </ContentWrapper>
     </Container>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const prismic = Client;
+
+  const response = await prismic.query(
+    [Prismic.predicates.at("document.type", "course")],
+    {
+      fetch: ["course.title", "course.image", "course.excerpt", "course.price"],
+      pageSize: 100,
+    }
+  );
+
+  const courses = response.results.map((course) => {
+    const { id, data } = course;
+
+    return {
+      id,
+      title: data.title[0].text,
+      excerpt: data.excerpt[0].text,
+      price: new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(data.price),
+      image: data.image.url,
+    };
+  });
+
+  return {
+    props: {
+      courses,
+    },
+  };
+};
