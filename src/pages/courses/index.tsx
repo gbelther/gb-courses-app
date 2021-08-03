@@ -29,43 +29,39 @@ import {
 interface ICoursesProps {
   courses: {
     id: string;
+    slug: string;
     title: string;
     excerpt: string;
     price: string;
+    categoryId: string;
     image: string;
+  }[];
+
+  categories: {
+    id: string;
+    slug: string;
+    name: string;
   }[];
 }
 
-export default function Courses({ courses }: ICoursesProps) {
+export default function Courses({ courses, categories }: ICoursesProps) {
   return (
     <Container>
       <NavWrapper>
         <NavTitle>Filtros</NavTitle>
         <NavBar>
-          <NavItem>
-            <InputCheckWrapper>
-              <InputCheck type="checkbox" id="front-end" />
-              <Label htmlFor="front-end">Front-end</Label>
-            </InputCheckWrapper>
-          </NavItem>
-          <NavItem>
-            <InputCheckWrapper>
-              <InputCheck type="checkbox" id="Back-end" />
-              <Label htmlFor="Back-end">Back-end</Label>
-            </InputCheckWrapper>
-          </NavItem>
-          <NavItem>
-            <InputCheckWrapper>
-              <InputCheck type="checkbox" id="Data-Science" />
-              <Label htmlFor="Data-Science">Data Science</Label>
-            </InputCheckWrapper>
-          </NavItem>
-          <NavItem>
-            <InputCheckWrapper>
-              <InputCheck type="checkbox" id="Machine-Learning" />
-              <Label htmlFor="Machine-Learning">Machine Learning</Label>
-            </InputCheckWrapper>
-          </NavItem>
+          {categories.map((category) => {
+            const { id, name } = category;
+
+            return (
+              <NavItem key={id}>
+                <InputCheckWrapper>
+                  <InputCheck type="checkbox" id={id} />
+                  <Label htmlFor={id}>{name}</Label>
+                </InputCheckWrapper>
+              </NavItem>
+            );
+          })}
         </NavBar>
       </NavWrapper>
       <ContentWrapper>
@@ -98,24 +94,50 @@ export const getStaticProps: GetStaticProps = async () => {
   const prismic = Client;
 
   const response = await prismic.query(
-    [Prismic.predicates.at("document.type", "course")],
+    Prismic.predicates.any("document.type", ["course", "category"]),
     {
-      fetch: ["course.title", "course.image", "course.excerpt", "course.price"],
+      fetch: [
+        "course.category",
+        "course.title",
+        "course.image",
+        "course.excerpt",
+        "course.price",
+        "category.name",
+      ],
       pageSize: 100,
     }
   );
 
-  const courses = response.results.map((course) => {
-    const { id, data } = course;
+  const allCategories = response.results.filter(
+    (result) => result.type === "category"
+  );
+  const allCourses = response.results.filter(
+    (result) => result.type === "course"
+  );
+
+  const categories = allCategories.map((category) => {
+    const { id, uid, data } = category;
 
     return {
       id,
+      slug: uid,
+      name: data.name[0].text,
+    };
+  });
+
+  const courses = allCourses.map((course) => {
+    const { id, uid, data } = course;
+
+    return {
+      id,
+      slug: uid,
       title: data.title[0].text,
       excerpt: data.excerpt[0].text,
       price: new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
       }).format(data.price),
+      categoryId: data.category.id,
       image: data.image.url,
     };
   });
@@ -123,6 +145,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       courses,
+      categories,
     },
   };
 };
