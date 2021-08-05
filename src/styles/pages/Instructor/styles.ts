@@ -27,6 +27,11 @@ export const Content = styled.article`
   font-size: 1rem;
   text-align: justify;
 
+  p,
+  ul {
+    margin: 1rem 0;
+  }
+
   :not(:first-child) {
     margin-bottom: 1rem;
   }

@@ -2,7 +2,7 @@ import { useEffect, ChangeEvent, useState } from "react";
 import { GetStaticProps } from "next";
 import Prismic from "@prismicio/client";
 
-import { Client } from "../../services/prismic";
+import { Client as PrismicClient } from "../../services/prismic";
 
 import {
   Container,
@@ -124,9 +124,7 @@ export default function Courses({ courses, categories }: ICoursesProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prismic = Client;
-
-  const response = await prismic.query(
+  const response = await PrismicClient.query(
     Prismic.predicates.any("document.type", ["course", "category"]),
     {
       fetch: [
