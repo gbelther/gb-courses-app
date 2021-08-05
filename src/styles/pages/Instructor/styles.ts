@@ -9,12 +9,18 @@ export const Container = styled.main`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  gap: 1.5rem;
 `;
 
 export const Title = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 1.5rem;
+`;
+
+export const Image = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
 `;
 
 export const Content = styled.article`
