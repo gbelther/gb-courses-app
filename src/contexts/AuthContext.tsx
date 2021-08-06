@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { createContext, ReactNode } from "react";
+import { useState, useEffect, createContext, ReactNode } from "react";
 
 import Router from "next/router";
 
 import firebase from "../services/firebase";
 
 interface IUser {
-  displayName: string;
+  uid: string;
+  name: string;
   email: string;
-  photoURL: string;
+  avatar: string;
 }
 
 interface IAuthContext {
@@ -25,19 +25,55 @@ interface IAuthProviderProps {
 const AuthContext = createContext({} as IAuthContext);
 
 export function AuthProvider({ children }: IAuthProviderProps) {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState<any>(true);
+  const [user, setUser] = useState<IUser | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const signin = () => {
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        const { uid, displayName, email, photoURL } = user;
+
+        if (displayName && email) {
+          setUser({
+            uid,
+            name: displayName,
+            email,
+            avatar: photoURL ?? "",
+          });
+        } else {
+          throw new Error("Missing information from authentication.");
+        }
+      }
+    });
+  }, []);
+
+  const handleUser = (userInformations: firebase.User) => {
+    if (userInformations) {
+      const { uid, displayName, email, photoURL } = userInformations;
+
+      if (displayName && email) {
+        setUser({
+          uid,
+          name: displayName,
+          email,
+          avatar: photoURL ?? "",
+        });
+      } else {
+        throw new Error("Missing information from authentication.");
+      }
+    }
+  };
+
+  const signin = async () => {
     try {
       setLoading(true);
-      return firebase
+      const response = await firebase
         .auth()
-        .signInWithPopup(new firebase.auth.GithubAuthProvider())
-        .then((response) => {
-          setUser(response.user);
-          Router.push("/");
-        });
+        .signInWithPopup(new firebase.auth.GithubAuthProvider());
+
+      if (response.user) {
+        handleUser(response.user);
+      }
     } finally {
       setLoading(false);
     }
@@ -46,10 +82,8 @@ export function AuthProvider({ children }: IAuthProviderProps) {
     try {
       Router.push("/");
 
-      return firebase
-        .auth()
-        .signOut()
-        .then(() => setUser(false));
+      return firebase.auth().signOut();
+      // .then(() => setUser());
     } finally {
       setLoading(false);
     }
