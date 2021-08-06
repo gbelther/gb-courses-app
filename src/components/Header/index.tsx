@@ -16,13 +16,14 @@ import {
 } from "./styles";
 
 export function Header() {
-  const { user, signin, signout } = useContext(AuthContext);
+  const { user, signinGitHub, signinGoogle, signout } = useContext(AuthContext);
 
   function handleUserLogin() {
     if (user) {
       signout();
     } else {
-      signin();
+      // signinGitHub();
+      signinGoogle();
     }
   }
 

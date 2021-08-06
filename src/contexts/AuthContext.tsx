@@ -14,7 +14,8 @@ interface IUser {
 interface IAuthContext {
   user: IUser | null;
   loading: boolean;
-  signin: () => void;
+  signinGitHub: () => void;
+  signinGoogle: () => void;
   signout: () => void;
 }
 
@@ -70,7 +71,7 @@ export function AuthProvider({ children }: IAuthProviderProps) {
     }
   };
 
-  const signin = async () => {
+  const signinGitHub = async () => {
     try {
       setLoading(true);
       const response = await firebase
@@ -80,6 +81,18 @@ export function AuthProvider({ children }: IAuthProviderProps) {
       if (response.user) {
         handleUser(response.user);
       }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signinGoogle = async () => {
+    try {
+      setLoading(true);
+      const response = await firebase
+        .auth()
+        .signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      handleUser(response.user);
     } finally {
       setLoading(false);
     }
@@ -101,7 +114,8 @@ export function AuthProvider({ children }: IAuthProviderProps) {
       value={{
         user,
         loading,
-        signin,
+        signinGitHub,
+        signinGoogle,
         signout,
       }}
     >
