@@ -29,7 +29,7 @@ export function AuthProvider({ children }: IAuthProviderProps) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const { uid, displayName, email, photoURL } = user;
 
@@ -45,9 +45,13 @@ export function AuthProvider({ children }: IAuthProviderProps) {
         }
       }
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  const handleUser = (userInformations: firebase.User) => {
+  const handleUser = (userInformations: firebase.User | null) => {
     if (userInformations) {
       const { uid, displayName, email, photoURL } = userInformations;
 
@@ -61,6 +65,8 @@ export function AuthProvider({ children }: IAuthProviderProps) {
       } else {
         throw new Error("Missing information from authentication.");
       }
+    } else {
+      setUser(null);
     }
   };
 
@@ -78,12 +84,13 @@ export function AuthProvider({ children }: IAuthProviderProps) {
       setLoading(false);
     }
   };
-  const signout = () => {
+
+  const signout = async () => {
     try {
       Router.push("/");
 
-      return firebase.auth().signOut();
-      // .then(() => setUser());
+      await firebase.auth().signOut();
+      handleUser(null);
     } finally {
       setLoading(false);
     }

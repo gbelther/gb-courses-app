@@ -13,10 +13,6 @@ import {
 export default function Home() {
   const router = useRouter();
 
-  const { user, signin } = useAuth();
-
-  console.log(user);
-
   function handleRouterCourses() {
     router.push("/courses");
   }
@@ -32,7 +28,6 @@ export default function Home() {
           pelo mercado e se destaque nesse meio.
         </Legend>
         <Button onClick={handleRouterCourses}>Conheça os cursos</Button>
-        <Button onClick={() => signin()}>Login</Button>
       </LegendWrapper>
     </Container>
   );

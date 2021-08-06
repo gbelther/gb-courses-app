@@ -5,6 +5,7 @@ export const darkTheme = {
     secondary: "#F687B3",
     warning: "#ECC94B",
     success: "#48BB78",
+    failure: "#C53030",
     warningText: "#000",
     background: "#1A202C",
   },

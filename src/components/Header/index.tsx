@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { useContext } from "react";
+import AuthContext from "../../contexts/AuthContext";
 
 import {
   Container,
@@ -9,10 +11,21 @@ import {
   LogoTitle,
   NavItem,
   UserIcon,
+  Avatar,
   Username,
 } from "./styles";
 
 export function Header() {
+  const { user, signin, signout } = useContext(AuthContext);
+
+  function handleUserLogin() {
+    if (user) {
+      signout();
+    } else {
+      signin();
+    }
+  }
+
   return (
     <Container>
       <Link href="/" passHref>
@@ -32,9 +45,11 @@ export function Header() {
           <NavItem>Instrutor</NavItem>
         </Link>
       </NavWrapper>
-      <UserLoginWrapper>
-        <UserIcon />
-        <Username>Gabriel Belther</Username>
+      <UserLoginWrapper onClick={handleUserLogin}>
+        {!!user ? <Avatar src={user?.avatar} /> : <UserIcon />}
+        <Username isAuthenticated={!!user}>
+          {user?.name ?? "Fazer login"}
+        </Username>
       </UserLoginWrapper>
     </Container>
   );
