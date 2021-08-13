@@ -14,6 +14,9 @@ export const darkTheme = {
   },
   breakPoints: {
     xl: "1280px",
+    lg: "992px",
+    md: "768px",
+    sm: "576px",
   },
 };
 
