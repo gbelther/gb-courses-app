@@ -1,5 +1,11 @@
+import { GetStaticProps } from "next";
 import { useRouter } from "next/router";
-import useAuth from "../hooks/useAuth";
+
+import { RichText } from "prismic-dom";
+
+import Prismic from "@prismicio/client";
+
+import { Client as PrismicClient } from "../services/prismic";
 
 import {
   Container,
@@ -10,7 +16,14 @@ import {
   Button,
 } from "../styles/pages/Home/styles";
 
-export default function Home() {
+interface IHomeProps {
+  homeInfos: {
+    phrase: string;
+    image: string;
+  };
+}
+
+export default function Home({ homeInfos }: IHomeProps) {
   const router = useRouter();
 
   function handleRouterCourses() {
@@ -20,15 +33,39 @@ export default function Home() {
   return (
     <Container>
       <ImageWrapper>
-        <Image src="course-homepage.png" alt="" />
+        <Image src={homeInfos.image} />
       </ImageWrapper>
       <LegendWrapper>
-        <Legend>
-          Aprofunde-se nas principais <strong>tecnologias</strong> praticadas
-          pelo mercado e se destaque nesse meio.
-        </Legend>
+        <Legend
+          dangerouslySetInnerHTML={{
+            __html: homeInfos.phrase,
+          }}
+        />
         <Button onClick={handleRouterCourses}>Conheça os cursos</Button>
       </LegendWrapper>
     </Container>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await PrismicClient.query(
+    Prismic.predicates.at("document.type", "home"),
+    {
+      fetch: ["home.phrase", "home.image"],
+      pageSize: 100,
+    }
+  );
+
+  const { data } = response.results[0];
+
+  const homeInfos = {
+    phrase: RichText.asHtml(data.phrase),
+    image: data.image.url,
+  };
+
+  return {
+    props: {
+      homeInfos,
+    },
+  };
+};
