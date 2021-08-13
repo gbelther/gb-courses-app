@@ -124,6 +124,10 @@ export const CourseWrapper = styled.div`
 export const CourseTitle = styled.p`
   font-size: 1.25rem;
   font-weight: bold;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.lg}) {
+    display: none;
+  }
 `;
 
 export const CourseInfos = styled.div`
