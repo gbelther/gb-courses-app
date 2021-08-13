@@ -1,5 +1,8 @@
 import Link from "next/link";
-import { useContext } from "react";
+import { useState, useContext } from "react";
+
+import { ModalSignin } from "../ModalSignin";
+
 import AuthContext from "../../contexts/AuthContext";
 
 import {
@@ -14,16 +17,24 @@ import {
   Avatar,
   Username,
 } from "./styles";
+import { useEffect } from "react";
 
 export function Header() {
-  const { user, signinGitHub, signinGoogle, signout } = useContext(AuthContext);
+  const [showModalSignin, setShowModalSignin] = useState(false);
+
+  const { user, signout } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (user) {
+      setShowModalSignin(false);
+    }
+  }, [user]);
 
   function handleUserLogin() {
     if (user) {
       signout();
     } else {
-      // signinGitHub();
-      signinGoogle();
+      setShowModalSignin(true);
     }
   }
 
@@ -52,6 +63,12 @@ export function Header() {
           {user?.name ?? "Fazer login"}
         </Username>
       </UserLoginWrapper>
+      {showModalSignin && (
+        <ModalSignin
+          isOpen={showModalSignin}
+          onClose={() => setShowModalSignin(false)}
+        />
+      )}
     </Container>
   );
 }

@@ -56,6 +56,8 @@ export function AuthProvider({ children }: IAuthProviderProps) {
     if (userInformations) {
       const { uid, displayName, email, photoURL } = userInformations;
 
+      console.log(userInformations);
+
       if (displayName && email) {
         setUser({
           uid,
@@ -64,7 +66,7 @@ export function AuthProvider({ children }: IAuthProviderProps) {
           avatar: photoURL ?? "",
         });
       } else {
-        throw new Error("Missing information from authentication.");
+        // throw new Error("Missing information from authentication.");
       }
     } else {
       setUser(null);
