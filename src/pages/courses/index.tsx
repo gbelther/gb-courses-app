@@ -111,7 +111,7 @@ export default function Courses({ courses, categories }: ICoursesProps) {
                   </CourseInfos>
                   <CourseAction>
                     <CoursePrice>{price}</CoursePrice>
-                    <Button>DETALHES</Button>
+                    <Button disabled>DETALHES</Button>
                   </CourseAction>
                 </CourseWrapper>
               </CourseItem>

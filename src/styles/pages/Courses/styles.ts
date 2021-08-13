@@ -170,4 +170,8 @@ export const Button = styled.button`
   font-weight: bold;
   border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: 4px;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
