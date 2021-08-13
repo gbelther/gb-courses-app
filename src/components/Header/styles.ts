@@ -28,6 +28,10 @@ export const LogoIcon = styled(GiWolfHowl)`
 export const LogoTitle = styled.p`
   font-size: 1.125rem;
   font-weight: bold;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.sm}) {
+    display: none;
+  }
 `;
 
 // Navigation
@@ -84,4 +88,8 @@ export const Username = styled.p<IUsernameProps>`
     props.isAuthenticated
       ? ({ theme }) => theme.colors.success
       : ({ theme }) => theme.colors.failure};
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.sm}) {
+    display: none;
+  }
 `;

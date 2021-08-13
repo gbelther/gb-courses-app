@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-  width: ${({ theme }) => theme.breakPoints.xl};
+  width: 80%;
   margin: 0 auto;
   padding: 1rem 0;
 

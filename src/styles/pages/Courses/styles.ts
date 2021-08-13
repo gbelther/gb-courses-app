@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
 export const Container = styled.main`
-  width: 100%;
+  width: 80%;
   max-width: ${({ theme }) => theme.breakPoints.xl};
   margin: 0 auto;
   padding: 2rem 0;
 
   display: grid;
-  grid-template-columns: 300px auto;
+  grid-template-columns: 200px auto;
   gap: 1rem;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.sm}) {
+    width: 90%;
+    display: grid;
+    grid-template-columns: auto;
+    gap: 1rem;
+  }
 `;
 
 export const NavWrapper = styled.nav`
@@ -21,6 +28,13 @@ export const NavWrapper = styled.nav`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.sm}) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 `;
 
 export const NavTitle = styled.p`
@@ -86,6 +100,7 @@ export const CourseItem = styled.li`
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export const ImgCourse = styled.img`
@@ -109,6 +124,10 @@ export const CourseWrapper = styled.div`
 export const CourseTitle = styled.p`
   font-size: 1.25rem;
   font-weight: bold;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.lg}) {
+    display: none;
+  }
 `;
 
 export const CourseInfos = styled.div`
@@ -122,6 +141,10 @@ export const CourseInfos = styled.div`
 export const CourseDescription = styled.p`
   font-size: 0.9375rem;
   text-align: justify;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.lg}) {
+    display: none;
+  }
 `;
 
 export const CourseAction = styled.div`
