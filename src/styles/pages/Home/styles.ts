@@ -36,10 +36,12 @@ export const LegendWrapper = styled.section`
   gap: 2rem;
 `;
 
-export const Legend = styled.p`
-  width: 100%;
-  font-size: 2rem;
-  text-align: center;
+export const Legend = styled.div`
+  p {
+    width: 100%;
+    font-size: 2rem;
+    text-align: center;
+  }
 `;
 
 export const Button = styled.button`
