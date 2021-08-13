@@ -4,16 +4,18 @@ export const Container = styled.main`
   width: 100%;
   max-width: ${({ theme }) => theme.breakPoints.xl};
   height: calc(100vh - 3rem);
+  min-height: 660px;
   margin: 0 auto;
 
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
 `;
 
 export const ImageWrapper = styled.section`
   width: 50%;
+  min-width: 350px;
 
   display: flex;
   justify-content: center;
@@ -36,10 +38,12 @@ export const LegendWrapper = styled.section`
   gap: 2rem;
 `;
 
-export const Legend = styled.p`
-  width: 100%;
-  font-size: 2rem;
-  text-align: center;
+export const Legend = styled.div`
+  p {
+    width: 100%;
+    font-size: 2rem;
+    text-align: center;
+  }
 `;
 
 export const Button = styled.button`

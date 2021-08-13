@@ -1,4 +1,9 @@
 import Link from "next/link";
+import { useState, useContext } from "react";
+
+import { ModalSignin } from "../ModalSignin";
+
+import AuthContext from "../../contexts/AuthContext";
 
 import {
   Container,
@@ -9,10 +14,30 @@ import {
   LogoTitle,
   NavItem,
   UserIcon,
+  Avatar,
   Username,
 } from "./styles";
+import { useEffect } from "react";
 
 export function Header() {
+  const [showModalSignin, setShowModalSignin] = useState(false);
+
+  const { user, signout } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (user) {
+      setShowModalSignin(false);
+    }
+  }, [user]);
+
+  function handleUserLogin() {
+    if (user) {
+      signout();
+    } else {
+      setShowModalSignin(true);
+    }
+  }
+
   return (
     <Container>
       <Link href="/" passHref>
@@ -32,10 +57,18 @@ export function Header() {
           <NavItem>Instrutor</NavItem>
         </Link>
       </NavWrapper>
-      <UserLoginWrapper>
-        <UserIcon />
-        <Username>Gabriel Belther</Username>
+      <UserLoginWrapper onClick={handleUserLogin}>
+        {!!user ? <Avatar src={user?.avatar} /> : <UserIcon />}
+        <Username isAuthenticated={!!user}>
+          {user?.name ?? "Fazer login"}
+        </Username>
       </UserLoginWrapper>
+      {showModalSignin && (
+        <ModalSignin
+          isOpen={showModalSignin}
+          onClose={() => setShowModalSignin(false)}
+        />
+      )}
     </Container>
   );
 }

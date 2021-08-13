@@ -28,6 +28,10 @@ export const LogoIcon = styled(GiWolfHowl)`
 export const LogoTitle = styled.p`
   font-size: 1.125rem;
   font-weight: bold;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.sm}) {
+    display: none;
+  }
 `;
 
 // Navigation
@@ -56,6 +60,7 @@ export const UserLoginWrapper = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 
   cursor: pointer;
 `;
@@ -65,7 +70,26 @@ export const UserIcon = styled(HiUserCircle)`
   width: 2rem;
 `;
 
-export const Username = styled.p`
+export const Avatar = styled.img`
+  height: 2rem;
+  width: 2rem;
+  border: 1px solid ${({ theme }) => theme.colors.success};
+  border-radius: 50%;
+`;
+
+interface IUsernameProps {
+  isAuthenticated: boolean;
+}
+
+export const Username = styled.p<IUsernameProps>`
   font-size: 0.9375rem;
   font-weight: bold;
+  color: ${(props) =>
+    props.isAuthenticated
+      ? ({ theme }) => theme.colors.success
+      : ({ theme }) => theme.colors.failure};
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.sm}) {
+    display: none;
+  }
 `;
