@@ -2,6 +2,8 @@
 
 Este app foi desenvolvido com o intuito de aperfeiçoar os conhecimentos de front-end, utilizando diversas tecnologias. O projeto consiste em uma plataforma de compra de curso, em que possui a home page, uma página de listagem dos cursos e uma página descrevendo o instrutor. Estas 3 são preenchidas com a utilização do CMS Primisc, formando páginas estáticas com o auxílio do getStaticProps, ferramenta do NextJS. Além disso, é possível realizar login através de uma conta google, que foi permitido graças a utilização do Firebase.
 
+<h3>Construção do APP ainda em andamento</h3>
+
 <h3>Tecnologias Utilizadas</h3>
  - Typescript <br>
  - React <br>
