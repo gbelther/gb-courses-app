@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "jest": "test"
+    "test": "jest --watch"
   },
   "dependencies": {
     "@prismicio/client": "^5.1.0",
@@ -21,9 +21,11 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.0",
     "@testing-library/dom": "^8.1.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@types/jest": "^27.0.1",
     "@types/prismic-dom": "^2.1.1",
     "@types/react": "17.0.15",
     "@types/react-modal": "^3.12.1",
@@ -32,7 +34,9 @@
     "babel-plugin-styled-components": "^1.13.2",
     "eslint": "7.32.0",
     "eslint-config-next": "11.0.1",
+    "jest": "^27.0.6",
     "jest-dom": "^4.0.0",
+    "jest-styled-components": "^7.0.5",
     "typescript": "4.3.5"
   }
 }
