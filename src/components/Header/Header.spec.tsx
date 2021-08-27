@@ -12,9 +12,13 @@ export const renderTheme = (children: ReactNode) => {
 describe("Header component", () => {
   renderTheme(<Header />);
 
-  it("should render correctly", () => {
-    const logoName = screen.getByText(/GB-COURSES/i);
+  it("should render nav items correcly", () => {
+    const homeItem = screen.getByText(/home/i);
+    const cursosItem = screen.getByText(/cursos/i);
+    const instrutorItem = screen.getByText(/Instrutor/i);
 
-    expect(logoName).toBeInTheDocument();
+    expect(homeItem).toBeInTheDocument();
+    expect(cursosItem).toBeInTheDocument();
+    expect(instrutorItem).toBeInTheDocument();
   });
 });
