@@ -10,9 +10,8 @@ export const renderTheme = (children: ReactNode) => {
 };
 
 describe("Header component", () => {
-  renderTheme(<Header />);
-
   it("should render nav items correcly", () => {
+    renderTheme(<Header />);
     const homeItem = screen.getByText(/home/i);
     const cursosItem = screen.getByText(/cursos/i);
     const instrutorItem = screen.getByText(/Instrutor/i);
@@ -21,4 +20,14 @@ describe("Header component", () => {
     expect(cursosItem).toBeInTheDocument();
     expect(instrutorItem).toBeInTheDocument();
   });
+
+  // it("should redirect to courses page when click on cursos", () => {
+  //   renderTheme(<Header />);
+
+  //   const coursesItem = screen.getByRole("link", {
+  //     name: /cursos/i,
+  //   });
+
+  //   coursesItem.click();
+  // });
 });
