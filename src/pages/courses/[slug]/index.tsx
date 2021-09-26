@@ -15,8 +15,10 @@ export default function Course() {
       <CourseResume>
         <h2>React do Básico ao Avançado</h2>
         <ImgCourse src="/react-img.png" />
-        <CoursePrice>R$199,90</CoursePrice>
-        <Button>COMPRAR</Button>
+        <div>
+          <CoursePrice>R$199,90</CoursePrice>
+          <Button>COMPRAR</Button>
+        </div>
       </CourseResume>
       <CourseDescription>
         <h1>Conheça o Curso</h1>
