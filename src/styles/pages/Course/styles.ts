@@ -51,4 +51,8 @@ export const CourseDescription = styled.section`
 export const Description = styled.article`
   font-size: 1rem;
   text-align: justify;
+
+  p:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 `;
