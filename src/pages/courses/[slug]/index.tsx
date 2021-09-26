@@ -6,7 +6,6 @@ import {
   CourseDescription,
   ImgCourse,
   CoursePrice,
-  BuyButton,
   Description,
 } from "../../../styles/pages/Course/styles";
 

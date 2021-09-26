@@ -28,10 +28,6 @@ export const CoursePrice = styled.p`
   font-weight: bold;
 `;
 
-export const BuyButton = styled.button`
-  width: 100px;
-`;
-
 export const CourseDescription = styled.section`
   width: 70%;
   padding: 0 1.5rem;
