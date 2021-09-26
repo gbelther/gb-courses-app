@@ -4,6 +4,8 @@ import Prismic from "@prismicio/client";
 
 import { Client as PrismicClient } from "../../services/prismic";
 
+import { Button } from "../../components/Button";
+
 import {
   Container,
   NavWrapper,
@@ -23,7 +25,6 @@ import {
   CourseDescription,
   CourseAction,
   CoursePrice,
-  Button,
 } from "../../styles/pages/Courses/styles";
 
 interface ICourse {

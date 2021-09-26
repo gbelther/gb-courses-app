@@ -1,3 +1,5 @@
+import { Button } from "../../../components/Button";
+
 import {
   Container,
   CourseResume,
@@ -15,7 +17,7 @@ export default function Course() {
         <h2>React do Básico ao Avançado</h2>
         <ImgCourse src="/react-img.png" />
         <CoursePrice>R$199,90</CoursePrice>
-        <BuyButton>COMPRAR</BuyButton>
+        <Button>COMPRAR</Button>
       </CourseResume>
       <CourseDescription>
         <h1>Conheça o Curso</h1>
