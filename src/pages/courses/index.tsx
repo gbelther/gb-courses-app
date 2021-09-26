@@ -1,5 +1,6 @@
 import { useEffect, ChangeEvent, useState } from "react";
 import { GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import Prismic from "@prismicio/client";
 
 import { Client as PrismicClient } from "../../services/prismic";
@@ -52,6 +53,8 @@ export default function Courses({ courses, categories }: ICoursesProps) {
     return categories.map((category) => category.id);
   });
 
+  const router = useRouter();
+
   useEffect(() => {
     const coursesAvailable = courses.filter((course) =>
       idCategoriesAvailable.includes(course.categoryId)
@@ -72,6 +75,10 @@ export default function Courses({ courses, categories }: ICoursesProps) {
     } else {
       setIdCategoriesAvailable((prevState) => [...prevState, id]);
     }
+  }
+
+  function handleRedirectToCoursePage(slug: string) {
+    router.push(`/courses/${slug}`);
   }
 
   return (
@@ -101,7 +108,7 @@ export default function Courses({ courses, categories }: ICoursesProps) {
       <ContentWrapper>
         <CoursesList>
           {filteredCourses.map((course) => {
-            const { id, excerpt, title, price, image } = course;
+            const { id, slug, excerpt, title, price, image } = course;
             return (
               <CourseItem key={id}>
                 <ImgCourse src={image} />
@@ -112,7 +119,9 @@ export default function Courses({ courses, categories }: ICoursesProps) {
                   </CourseInfos>
                   <CourseAction>
                     <CoursePrice>{price}</CoursePrice>
-                    <Button>DETALHES</Button>
+                    <Button onClick={() => handleRedirectToCoursePage(slug)}>
+                      DETALHES
+                    </Button>
                   </CourseAction>
                 </CourseWrapper>
               </CourseItem>
