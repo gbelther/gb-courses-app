@@ -1,14 +1,14 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { CustomButton } from "./styles";
 
-interface IButtonProps {
+interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
 }
 
-export function Button({ children }: IButtonProps) {
+export function Button({ children, ...props }: IButtonProps) {
   return (
     <div>
-      <CustomButton>{children}</CustomButton>
+      <CustomButton {...props}>{children}</CustomButton>
     </div>
   );
 }
